@@ -39,7 +39,7 @@ The project notes include documentation and access references for all three sour
 - `total_population` :contentReference[oaicite:10]{index=10}
 
 ### GHGRP
-The exact fields will depend on the final subset we download from the EPA GHGRP dataset, but we expect to use geographic and emissions-related fields to connect facility emissions context to the Boston metro area. At minimum, this source will contribute facility or emissions information relevant to environment.
+The exact fields will depend on the final subset we download from the EPA GHGRP dataset, but we expect to use geographic and emissions-related fields to connect facility emissions context to the Boston metro area. At minimum, this source will contribute facility or emissions information relevant to the environment.
 
 
 ## Merge Strategy
