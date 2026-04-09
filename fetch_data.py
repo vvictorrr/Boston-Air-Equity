@@ -282,7 +282,7 @@ def main():
 
     # Step 1: find monitoring stations in Boston
     locations = fetch_openaq_locations()
-    locations.to_csv("openaq_locations.csv", index=False)
+    locations.to_csv("data/raw/openaq_locations.csv", index=False)
     print(f"Saved openaq_locations.csv\n")
 
     # Step 2: fetch daily measurements for PM2.5, O3, NO2
@@ -292,7 +292,7 @@ def main():
         date_to="2025-01-01",
         parameters=["pm25", "o3", "no2"]
     )
-    measurements.to_csv("openaq_measurements.csv", index=False)
+    measurements.to_csv("data/raw/openaq_measurements.csv", index=False)
     print(f"Saved openaq_measurements.csv\n")
 
     print("=" * 60)
@@ -301,7 +301,7 @@ def main():
 
     # Step 3: fetch Census tract-level socioeconomic data
     tracts = fetch_census_tracts()
-    tracts.to_csv("census_tracts.csv", index=False)
+    tracts.to_csv("data/raw/census_tracts.csv", index=False)
     print(f"Saved census_tracts.csv\n")
 
     # Summary

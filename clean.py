@@ -231,33 +231,33 @@ def main():
 
     # Census
     print("\n--- Census ACS ---")
-    census_raw = pd.read_csv("census_tracts.csv")
+    census_raw = pd.read_csv("data/raw/census_tracts.csv")
     census_clean = clean_census(census_raw)
-    census_clean.to_csv("census_tracts_clean.csv", index=False)
+    census_clean.to_csv("data/cleaned/census_tracts_clean.csv", index=False)
 
     # OpenAQ locations
     print("\n--- OpenAQ Locations ---")
-    locations_raw = pd.read_csv("openaq_locations.csv")
+    locations_raw = pd.read_csv("data/raw/openaq_locations.csv")
     locations_clean = clean_openaq_locations(locations_raw)
-    locations_clean.to_csv("openaq_locations_clean.csv", index=False)
+    locations_clean.to_csv("data/cleaned/openaq_locations_clean.csv", index=False)
 
     # OpenAQ measurements
     print("\n--- OpenAQ Measurements ---")
-    measurements_raw = pd.read_csv("openaq_measurements.csv")
+    measurements_raw = pd.read_csv("data/raw/openaq_measurements.csv")
     measurements_clean = clean_openaq_measurements(measurements_raw)
-    measurements_clean.to_csv("openaq_measurements_clean.csv", index=False)
+    measurements_clean.to_csv("data/cleaned/openaq_measurements_clean.csv", index=False)
 
     # GHGRP
     print("\n--- EPA GHGRP ---")
-    ghgrp_clean = clean_ghgrp("flight.xls")
-    ghgrp_clean.to_csv("ghgrp_clean.csv", index=False)
+    ghgrp_clean = clean_ghgrp("data/raw/flight.xls")
+    ghgrp_clean.to_csv("data/cleaned/ghgrp_clean.csv", index=False)
 
     print("\n" + "=" * 60)
     print("DONE - Cleaned files saved:")
-    print("  census_tracts_clean.csv")
-    print("  openaq_locations_clean.csv")
-    print("  openaq_measurements_clean.csv")
-    print("  ghgrp_clean.csv")
+    print("  data/cleaned/census_tracts_clean.csv")
+    print("  data/cleaned/openaq_locations_clean.csv")
+    print("  data/cleaned/openaq_measurements_clean.csv")
+    print("  data/cleaned/ghgrp_clean.csv")
     print("=" * 60)
 
 
