@@ -5,6 +5,7 @@
 *.csv
 *.parquet
 *.xls
+*.html
 
 # Python
 __pycache__/
@@ -15,3 +16,5 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+
+inspect_data.py
