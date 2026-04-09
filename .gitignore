@@ -16,5 +16,3 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
-
-inspect_data.py
