@@ -37,7 +37,7 @@ if not OPENAQ_API_KEY or not CENSUS_API_KEY:
 
 # Boston Metro Bounding Box
 # Covers Greater Boston: roughly Chelsea to Brookline to Quincy
-BOSTON_BBOX = (-71.20, 42.23, -70.95, 42.42)  # (min_lon, min_lat, max_lon, max_lat)
+BOSTON_BBOX = (-71.25, 42.23, -70.70, 42.75)  # (min_lon, min_lat, max_lon, max_lat)
 
 # Boston-area county FIPS codes (Suffolk, Middlesex, Norfolk, Essex)
 # State FIPS for Massachusetts = 25
@@ -93,6 +93,7 @@ def fetch_openaq_daily_measurements(sensor_id, date_from="2024-01-01", date_to="
     """
     Fetch daily average measurements for a single sensor.
     Uses the /days endpoint for pre-aggregated daily means.
+    Retries with backoff if the API rate limit is hit.
     """
     url = f"{OPENAQ_BASE}/sensors/{sensor_id}/days"
     all_results = []
@@ -105,18 +106,33 @@ def fetch_openaq_daily_measurements(sensor_id, date_from="2024-01-01", date_to="
             "limit": 1000,
             "page": page,
         }
-        resp = requests.get(url, headers=OPENAQ_HEADERS, params=params)
-        resp.raise_for_status()
-        data = resp.json()
 
+        max_retries = 5
+        for attempt in range(max_retries):
+            resp = requests.get(url, headers=OPENAQ_HEADERS, params=params)
+
+            if resp.status_code == 429:
+                wait_time = 2 ** attempt
+                print(f"\n    Rate limited on sensor {sensor_id}, page {page}. "
+                      f"Waiting {wait_time} seconds...")
+                time.sleep(wait_time)
+                continue
+
+            resp.raise_for_status()
+            break
+        else:
+            print(f"\n    Skipping sensor {sensor_id} after repeated rate-limit errors.")
+            break
+
+        data = resp.json()
         results = data.get("results", [])
+
         if not results:
             break
 
         all_results.extend(results)
         page += 1
-        time.sleep(0.2)  # respect rate limits
-
+        time.sleep(1.0)
     return all_results
 
 
@@ -159,7 +175,7 @@ def fetch_all_measurements(locations_df, date_from="2024-01-01", date_to="2025-0
                 "max_value": summary.get("max"),
             })
         print(f"{len(results)} days")
-        time.sleep(0.3)
+        time.sleep(1.0)
 
     df = pd.DataFrame(all_rows)
     print(f"\nOpenAQ: Collected {len(df)} daily measurement records")

@@ -48,13 +48,18 @@ COUNTY_FIPS_TO_NAME = {
 
 def standardize_county_name(series: pd.Series) -> pd.Series:
     """Standardize county names."""
-    return (
-        series.astype(str)
+    cleaned = series.copy()
+    mask = cleaned.notna()
+
+    cleaned.loc[mask] = (
+        cleaned.loc[mask]
+        .astype(str)
         .str.replace(" County", "", regex=False)
         .str.replace(" COUNTY", "", regex=False)
         .str.strip()
         .str.title()
     )
+    return cleaned
 
 def safe_weighted_avg(values: pd.Series, weights: pd.Series) -> float:
     """Compute weighted average safely."""
@@ -169,6 +174,7 @@ def attach_county_to_openaq(
         return None
     mapping = pd.read_csv(filepath).copy()
     mapping["county_name"] = standardize_county_name(mapping["county"])
+    mapping["county_name"] = mapping["county_name"].replace("Nan", pd.NA)
     merged = df.merge(
         mapping[["location_id", "county_name"]],
         on="location_id",

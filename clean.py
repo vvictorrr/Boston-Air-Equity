@@ -102,8 +102,8 @@ def clean_openaq_locations(df: pd.DataFrame) -> pd.DataFrame:
 
     # validate coordinates are roughly in Boston metro area
     cleaned = cleaned[
-        (cleaned["latitude"].between(42.2, 42.5)) &
-        (cleaned["longitude"].between(-71.2, -70.9))
+        (cleaned["latitude"].between(42.2, 42.75)) &
+        (cleaned["longitude"].between(-71.25, -70.70))
     ].copy()
 
     cleaned = cleaned.reset_index(drop=True)
