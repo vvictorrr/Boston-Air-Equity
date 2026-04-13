@@ -5,6 +5,7 @@ Analyzing the relationship between air quality, car dependency, public transit u
 **Research Question:** In the Boston metro area, do neighborhoods with higher car dependency and lower public transit usage experience worse air quality, and do these patterns disproportionately affect lower-income communities?
 
 The project follows a layered architecture with strict separation of concerns. The pipeline currently flows as:
+
 fetch_data.py -> clean.py -> merge.py
 
 fetch_data.py saves raw data to CSV files in "data/raw/", which the downstream layers read from. This caching step avoids hitting API rate limits on every run. Then, clean.py reads these raw CSVs and returns cleaned DataFrames. merge.py imports cleaning functions from clean.py and runs them on the raw files, and merges the results. 
