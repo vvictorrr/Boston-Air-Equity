@@ -52,8 +52,6 @@ pip install pandas requests python-dotenv plotly panel pytest openpyxl
 ```
  
 3. Set up API keys:
-- Register for an OpenAQ API key at https://explore.openaq.org/register
-- Register for a Census API key at https://api.census.gov/data/key_signup.html
 ```bash
 touch .env
 echo "OPENAQ_API_KEY=your_key_here\nCENSUS_API_KEY=your_key_here" > .env
