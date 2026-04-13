@@ -32,6 +32,49 @@ Facility-level greenhouse gas emissions data for Massachusetts, exported from EP
 - Key fields: `facility_name`, `latitude`, `longitude`, `county`, `ghg_quantity_co2e`
 - Format: XLS file with 4 metadata header rows before the actual data
 
+## Setup and Installation
+ 
+### Prerequisites
+- Python 3.10+
+- conda or pip
+ 
+### Steps
+ 
+1. Clone the repository:
+```bash
+git clone https://github.com/vvictorrr/Boston-Air-Equity.git
+cd Boston-Air-Equity
+```
+ 
+2. Ensure dependencies are installed. If not, run:
+```bash
+pip install pandas requests python-dotenv plotly panel pytest openpyxl
+```
+ 
+3. Set up API keys:
+- Register for an OpenAQ API key at https://explore.openaq.org/register
+- Register for a Census API key at https://api.census.gov/data/key_signup.html
+```bash
+touch .env
+echo "OPENAQ_API_KEY=your_key_here\nCENSUS_API_KEY=your_key_here" > .env
+```
+Replace your_key_here with your respective API keys
+
+4. Fetch raw data:
+```bash
+python fetch_data.py
+```
+ 
+5. Run the full pipeline (clean + merge):
+```bash
+python merge.py
+```
+ 
+6. Run tests:
+```bash
+pytest test.py -v
+```
+
 
 ## Data Cleaning Decisions
  
@@ -82,6 +125,9 @@ Facility-level greenhouse gas emissions data for Massachusetts, exported from EP
  
 **Mixed units in OpenAQ data:** PM2.5 is reported in µg/m³ while NO2 and O3 are in ppm. These are not directly comparable, so visualizations should always filter by parameter or clearly label units.
  
-**GHGRP only covers large emitters:** The GHGRP threshold is 25,000 metric tons CO2e per year. Smaller facilities and mobile sources (vehicle traffic) — which are likely the dominant pollution sources in urban Boston — are not captured. The GHGRP data shows industrial emission hotspots but does not represent the full pollution picture.
+**GHGRP only covers large emitters:** The GHGRP threshold is 25,000 metric tons CO2e per year. Smaller facilities and mobile sources (vehicle traffic), which are likely the dominant pollution sources in urban Boston, are not captured. The GHGRP data shows industrial emission hotspots but does not represent the full pollution picture.
+ 
+**GHGRP temporal mismatch:** GHGRP facility emissions are from the reporting year 2023, while OpenAQ air quality measurements are from 2024 and Census ACS estimates span 2019–2023. We treat emissions as roughly stable year-to-year for the purpose of county-level comparison, but any facility that opened, closed, or significantly changed output between 2023 and 2024 would not be reflected.
  
 **Census ACS margin of error:** ACS 5-year estimates for small tracts can have wide margins of error, especially for detailed tables like vehicle availability. County-level aggregation reduces this issue by pooling across many tracts.
+ 
