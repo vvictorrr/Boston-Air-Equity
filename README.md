@@ -125,7 +125,7 @@ pytest test.py -v
  
 **GHGRP only covers large emitters:** The GHGRP threshold is 25,000 metric tons CO2e per year. Smaller facilities and mobile sources (vehicle traffic), which are likely the dominant pollution sources in urban Boston, are not captured. The GHGRP data shows industrial emission hotspots but does not represent the full pollution picture.
  
-**GHGRP temporal mismatch:** GHGRP facility emissions are from the reporting year 2023, while OpenAQ air quality measurements are from 2024 and Census ACS estimates span 2019–2023. We treat emissions as roughly stable year-to-year for the purpose of county-level comparison, but any facility that opened, closed, or significantly changed output between 2023 and 2024 would not be reflected.
+**GHGRP temporal mismatch:** GHGRP facility emissions are from the reporting year 2023, while OpenAQ air quality measurements are from 2024 and Census ACS estimates span 2019-2023. We treat emissions as roughly stable year-to-year for the purpose of county-level comparison, but any facility that opened, closed, or significantly changed output between 2023 and 2024 would not be reflected.
  
 **Census ACS margin of error:** ACS 5-year estimates for small tracts can have wide margins of error, especially for detailed tables like vehicle availability. County-level aggregation reduces this issue by pooling across many tracts.
  
