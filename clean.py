@@ -75,7 +75,7 @@ def clean_census(df: pd.DataFrame) -> pd.DataFrame:
     return cleaned
 
 
-#  OpenAQ — Locations
+#  OpenAQ - Locations
 
 # parameters relevant to air quality analysis
 RELEVANT_PARAMS = ["pm25", "o3", "no2"]
@@ -113,7 +113,7 @@ def clean_openaq_locations(df: pd.DataFrame) -> pd.DataFrame:
 
 
 
-#  OpenAQ — Measurements
+#  OpenAQ - Measurements
 
 def clean_openaq_measurements(df: pd.DataFrame) -> pd.DataFrame:
     """Clean OpenAQ daily measurement data.
@@ -221,7 +221,7 @@ def clean_ghgrp(filepath: str) -> pd.DataFrame:
     return cleaned
 
 
-#  MAIN — Run all cleaning and save results
+#  MAIN - Run all cleaning and save results
 
 def main():
     """Run all cleaning steps and save cleaned data."""
