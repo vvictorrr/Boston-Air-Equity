@@ -38,18 +38,21 @@ Facility-level greenhouse gas emissions data for Massachusetts, exported from EP
 ### Prerequisites
 - Python 3.10+
 - conda or pip
+- Docker Desktop (for containerized setup)
  
+## Local Setup and Installation
+
 ### Steps
- 
+
 1. Clone the repository:
 ```bash
 git clone https://github.com/vvictorrr/Boston-Air-Equity.git
 cd Boston-Air-Equity
 ```
- 
-2. Ensure dependencies are installed. If not, run:
+
+2. Install dependencies:
 ```bash
-pip install pandas requests python-dotenv plotly panel pytest openpyxl
+pip install -r requirements.txt
 ```
  
 3. Set up API keys:
@@ -64,7 +67,7 @@ Replace your_key_here with your respective API keys
 python fetch_data.py
 ```
  
-5. Run the full pipeline (clean + merge):
+5. Run the merge pipeline:
 ```bash
 python merge.py
 ```
@@ -72,6 +75,24 @@ python merge.py
 6. Run tests:
 ```bash
 pytest test.py -v
+```
+
+## Docker Setup
+This project can also be run in Docker to ensure a reproducible environment across machines.
+
+1. Build the container:
+```bash
+docker compose build
+```
+
+2. Run the merge pipeline in Docker:
+```bash
+docker compose up
+```
+
+3. Run tests in Docker:
+```bash
+docker compose run --rm boston-air-equity pytest test.py -v
 ```
 
 
