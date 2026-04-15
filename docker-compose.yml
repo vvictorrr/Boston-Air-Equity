@@ -1,0 +1,7 @@
+services:
+  boston-air-equity:
+    build: .
+    container_name: boston-air-equity
+    volumes:
+      - .:/app
+    command: python merge.py
