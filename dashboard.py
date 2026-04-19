@@ -88,7 +88,7 @@ def build_scatter(
         y="mean_air_quality",
         size="total_population",
         color="ghgrp_total_co2e",
-        color_continuous_scale="OrRd",
+        color_continuous_scale="agsunset",
         hover_name="county_name",
         hover_data={
             x_variable: ":.1f",
