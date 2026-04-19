@@ -2,6 +2,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import panel as pn
+import numpy as np
 
 pn.extension("plotly", sizing_mode="stretch_width")
 
@@ -150,11 +151,16 @@ def build_heatmap(
 
     pivot = pivot.sort_index(ascending=True)
 
+    zmin = np.nanpercentile(pivot.values, 2)
+    zmax = np.nanpercentile(pivot.values, 99)
+
     fig = go.Figure(data=go.Heatmap(
         z=pivot.values,
         x=month_labels,
         y=pivot.index.tolist(),
         colorscale="Viridis",
+        zmin=zmin,
+        zmax=zmax,
     ))
 
     fig.update_layout(
