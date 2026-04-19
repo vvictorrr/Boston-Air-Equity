@@ -538,6 +538,7 @@ dashboard = pn.Column(
     pn.Column(animated_lines, css_classes=["card"], sizing_mode="stretch_width"),
 
     sizing_mode="stretch_width",
+    max_width=1400,
     margin=(14, 20),
 )
 
